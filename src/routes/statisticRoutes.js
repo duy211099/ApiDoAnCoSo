@@ -19,19 +19,23 @@ router.get('/khoa', async (req, res) => {
 
     const khoa = await Khoa.find();
 
-    console.log(khoa);
+    khoa.unshift({_id:1,value:''})
     
    return res.send(khoa);
 })
 
 router.get('/lop', async (req, res) => {    
 
-    req.query.malop == undefined ? malop = '' : malop = req.query.malop;
+    req.query.makhoa == undefined ? makhoa = '' : makhoa = req.query.makhoa;
 
     const lop = await Lop.find({
-        malop: RegExp(".*" + malop + ".*"),
+        value: RegExp(".*" + makhoa + ".*"),
     });
     
+    lop.unshift({_id:1,value:''})
+    
+    console.log(lop);
+
    return res.send(lop);
 })
 

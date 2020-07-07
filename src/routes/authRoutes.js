@@ -73,7 +73,7 @@ router.post('/resetpassword', async (req, res) => {
 router.get('/profile/:mssv', async (req, res) => {
     const mssv=req.params.mssv;
     console.log(mssv);
-    const sinhvien = await SinhVien.findOne({mssv});
+    const sinhvien = await SinhVien.findOne({mssv: RegExp(".*" + mssv + ".*")});
     console.log(sinhvien);
     return res.send(sinhvien);
 })
