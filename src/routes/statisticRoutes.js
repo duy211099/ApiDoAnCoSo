@@ -67,7 +67,30 @@ router.get('/sinhvien', async (req, res) => {
          cmnd: RegExp(".*" + cmnd + ".*"), 
          diachi: RegExp(".*" + diachi + ".*") });
 
+         /*
+
+         */
     return res.send(sinhvien);
 })
+
+router.get('/csv', async (req, res) => {
+    //
+    const sinhvien = await SinhVien.find({
+         malop: RegExp(".*" + 'AVK40A' + ".*") });
+
+    //
+
+    // convert JSON array to CSV string
+    converter.json2csv(sinhvien, (err, csv) => {
+        if (err) {
+            throw err;
+        }
+    
+        // print CSV string
+        res.setHeader('Content-disposition', 'attachment; filename=testing.csv');
+        res.set('Content-Type', 'text/csv');
+        res.status(200).send(csv);
+    });
+});
 
 module.exports = router;
